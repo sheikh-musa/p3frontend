@@ -53,11 +53,10 @@ function Login() {
 }
 
 function Auth(props) {
+	let history = useHistory();
 	const [logErr, setLogErr] = useState('');
 	const [emailadd, setemailadd] = useState('');
 	const [pwd, setpwd] = useState('');
-	let history = useHistory();
-	let { path, url } = useRouteMatch();
 
 	const [show, setShow] = useState(false);
 	function handleClose() {
@@ -91,7 +90,7 @@ function Auth(props) {
 					board: response.data.data.board,
 					token: response.data.data.token,
 				});
-				history.push(path);
+				history.push('/mainboard');
 			})
 			.catch(function (error) {
 				console.log(error.response.data.message);
@@ -126,13 +125,6 @@ function Auth(props) {
 			<Button variant='info' type='login' size='l' onClick={wannalogin}>
 				Log in
 			</Button>
-			<Link to={`${url}/mainboard`}>Test link for Mainboard</Link>
-			<Switch>
-				<Route exact path={path}></Route>
-				<Route path={`${path}/:mainboard`}>
-					<MainBoard />
-				</Route>
-			</Switch>
 		</>
 	);
 }

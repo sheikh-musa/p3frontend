@@ -20,6 +20,9 @@ class NavRouter extends React.Component {
 					<Route exact path='/' component={HomePage} />
 					<Route path='/login' component={Login} />
 					<Route path='/signup' component={Signup} />
+					<Route path='/mainboard' component={MainBoard} />
+					<Route path='/edit-account' component={EditAccount} />
+					<Route path='/my-account' component={AccountDetails} />
 				</Switch>
 			</Router>
 		);

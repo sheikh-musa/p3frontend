@@ -1,4 +1,10 @@
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Link,
+	useHistory,
+} from 'react-router-dom';
 import '../App.css';
 import data from '../data.json';
 import Board from 'react-trello';
@@ -35,8 +41,8 @@ function SignUp() {
 }
 
 function Auth(props) {
+	let history = useHistory();
 	const [regErr, setRegErr] = useState('');
-
 	const [show, setShow] = useState(false);
 	function handleClose() {
 		setShow(false);
@@ -96,6 +102,7 @@ function Auth(props) {
 			.then(function (response) {
 				console.log(response);
 				handleClose();
+				history.push('/login');
 			})
 			.catch(function (error) {
 				console.log(error.response.data.message);

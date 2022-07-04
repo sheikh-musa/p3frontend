@@ -40,27 +40,24 @@ function MainBoard(props) {
 		<>
 			<h3>MainBoard</h3>
 			<Board
-				data={props.boardData}
+				data={data}
 				draggable
 				editable
 				addCardTitle='Add Item'
 				onDataChange={handleDataChange}
 			/>
 			<div>
-				<Link to={`${url}/myaccount`}>My Account from Mainboard</Link>
+				<Link to='/my-account'>My Account from Mainboard</Link>
 			</div>
 
 			<Switch>
-				<Route exact path={path} />
+				{/* <Route exact path={path} />
 				<Route path={`${path}/:myaccount`}>
 					<AccountDetails />
-				</Route>
-				{/* <Route path='/my-account'>
+				</Route> */}
+				<Route path='/my-account'>
 					<AccountDetails />
 				</Route>
-				<Route path='/edit-account'>
-					<EditAccount />
-				</Route> */}
 			</Switch>
 		</>
 	);
