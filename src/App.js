@@ -8,6 +8,35 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useState } from "react";
 
+
+////////////////////////////////////////////////
+//Lub's code
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Home from './screens/home.js';
+import Features from './screens/features.js';
+import Contact from './screens/contact.js';
+import Signup from './screens/signup.js';
+import Login from './screens/login.js';
+import EditAccount from './screens/editAccount.js';
+import Boards from './screens/board.js';
+
+function App() {
+  return (
+   <div className="App">
+      <Home />
+      <Features />
+      <Contact /> 
+      <Signup />
+      <Login />
+      <EditAccount />
+      <Boards />
+    </div>      
+  );
+}
+////////////////////////////////////////////////
+
+
 const axios = require("axios").default;
 const instance = axios.create({
 	baseURL: "https://sdic4g5.herokuapp.com/",
