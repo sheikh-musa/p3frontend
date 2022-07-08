@@ -7,35 +7,35 @@ import { useState } from "react";
 function Signup() {
 	// const auth = useAuth();
 	// const [validated, setValidated] = useState(false);
-	// const [signUpObj, setSignUpObj] = useState({
-	// 	firstName: "",
-	// 	lastName: "",
-	// 	username: "",
-	// 	email: "",
-	// 	password: "",
-	// 	passwordRepeat: "",
-	// });
+	const [signUpObj, setSignUpObj] = useState({
+		firstName: "",
+		lastName: "",
+		username: "",
+		email: "",
+		password: "",
+		passwordRepeat: "",
+	});
 
-	// const handleChange = (e) => {
-	// 	setSignUpObj({ ...signUpObj, [e.target.id]: e.target.value });
-	// };
-	// const handleSubmit = (event) => {
-	// 	const form = event.currentTarget;
-	// 	if (form.checkValidity() === false) {
-	// 		event.preventDefault();
-	// 		// event.stopPropagation();
-	// 		// AuthService.register(signUpObj);
-	// 		auth.signup(signUpObj.email, signUpObj.password);
-	// 	}
-	// 	setValidated(true);
-	// };
+	const handleChange = (e) => {
+		setSignUpObj({ ...signUpObj, [e.target.id]: e.target.value });
+	};
+	const handleSubmit = (event) => {
+		// const form = event.currentTarget;
+		// if (form.checkValidity() === false) {
+		event.preventDefault();
+		// event.stopPropagation();
+		// AuthService.register(signUpObj);
+		// auth.signup(signUpObj.email, signUpObj.password);
+		// }
+		// setValidated(true);
+	};
 	return (
 		<Row>
 			{/* Signup Form */}
 			<Col className="bg-danger py-4" sm={5}>
 				<h2 className="text-light text-center fw-bold px-5 my-4 mx-5">Create account here</h2>
 
-				<Form noValidate validated={validated} onSubmit={handleSubmit}>
+				<Form onSubmit={handleSubmit}>
 					<Form.Group className="mx-5 mb-3" controlId="firstName" onChange={handleChange}>
 						<Form.Control required type="text" placeholder="First name" />
 					</Form.Group>
