@@ -28,7 +28,7 @@ function Signup() {
 	// 		auth.signup(signUpObj.email, signUpObj.password);
 	// 	}
 	// 	setValidated(true);
-	};
+	// };
 	return (
 		<Row>
 			{/* Signup Form */}
