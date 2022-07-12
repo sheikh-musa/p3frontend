@@ -106,11 +106,11 @@ function App() {
 				</Container>
 			</Navbar>
 			<Routes>
-				<Route exact path="/" element={<Home />} />
-				<Route exact path="/home" element={<Home />} />
-				<Route exact path="/login" element={<Login />} />
-				<Route exact path="/signup" element={<Signup />} />
-				<Route exact path="/profile" element={<EditAccount />} />
+				<Route path="/" element={<Home />} />
+				<Route path="/home" element={<Home />} />
+				<Route path="/login" element={<Login />} />
+				<Route path="/signup" element={<Signup />} />
+				<Route path="/profile" element={<EditAccount />} />
 				<Route path="/board" element={<Boards />} />
 			</Routes>
 		</>
