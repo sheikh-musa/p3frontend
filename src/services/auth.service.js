@@ -1,8 +1,8 @@
 import axios from "axios";
 import { reactLocalStorage } from "reactjs-localstorage";
 
-const API_URL = "http://localhost:3001/";
-// const API_URL = "https://sdic4g5.herokuapp.com/";
+// const API_URL = "http://localhost:3001/";
+const API_URL = "https://sdic4g5.herokuapp.com/";
 
 const register = (values) => {
 	const { username, email, password, firstName, lastName } = values;
