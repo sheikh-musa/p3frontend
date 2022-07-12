@@ -41,7 +41,8 @@ function useProvideAuth() {
 	// 			return response.user;
 	// 		});
 	// };
-	const signup = (email, password, username, firstName, lastName) => {
+	const signup = (values) => {
+		const { username, email, password, firstName, lastName } = values;
 		return axios
 			.post(API_URL + "register", {
 				username,
@@ -52,7 +53,7 @@ function useProvideAuth() {
 			})
 			.then(function (response) {
 				console.log(response);
-				setUser(response);
+				setUser(response.data.data);
 			})
 			.catch(function (error) {
 				console.log(error.response.data.message);
@@ -75,7 +76,7 @@ function useProvideAuth() {
 	// 		});
 	// };
 	// const confirmPasswordReset = (code, password) => {
-	// 	return firebase
+	// 	return firebase x   `Sc
 	// 		.auth()
 	// 		.confirmPasswordReset(code, password)
 	// 		.then(() => {

@@ -3,11 +3,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import FormInput from "../components/FormInput.jsx";
 
-// import AuthService from "../services/auth.service";
-import { useAuth } from "../services/use-auth";
+import AuthService from "../services/auth.service";
+// import { useAuth } from "../services/use-auth";
 
 function Signup() {
-	const auth = useAuth();
+	// const auth = useAuth();
+	const [successful, setSuccessful] = useState(false);
+	const [message, setMessage] = useState("");
 	const [values, setValues] = useState({
 		username: "",
 		email: "",
@@ -15,6 +17,32 @@ function Signup() {
 		lastName: "",
 		password: "",
 	});
+
+	const onChange = (e) => {
+		setValues({ ...values, [e.target.name]: e.target.value });
+	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		console.log(values);
+		setMessage("");
+		setSuccessful(false);
+		AuthService.register(values).then(
+			(response) => {
+				setMessage(response.data.message);
+				setSuccessful(true);
+			},
+			(error) => {
+				const resMessage =
+					(error.response && error.response.data && error.response.data.message) ||
+					error.message ||
+					error.toString();
+
+				setMessage(resMessage);
+				setSuccessful(false);
+			}
+		);
+	};
 
 	const inputs = [
 		{
@@ -43,6 +71,7 @@ function Signup() {
 			type: "text",
 			placeholder: "First Name",
 			label: "First Name",
+			required: true,
 		},
 		{
 			id: 4,
@@ -50,6 +79,7 @@ function Signup() {
 			type: "text",
 			placeholder: "Last Name",
 			label: "Last Name",
+			required: true,
 		},
 		{
 			id: 5,
@@ -74,48 +104,45 @@ function Signup() {
 		},
 	];
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		auth.signup();
-	};
-
-	const onChange = (e) => {
-		setValues({ ...values, [e.target.name]: e.target.value });
-	};
-
-	console.log(values);
-
 	return (
 		<Row>
 			{/* Signup Form */}
 			<Col className="bg-danger py-4" sm={5}>
 				<h2 className="text-light text-center fw-bold px-5 my-4 mx-5">Create account here</h2>
+				{!successful && (
+					<div className="app">
+						<Form onSubmit={handleSubmit}>
+							{inputs.map((input) => (
+								<FormInput
+									className="ms-5 mb-3"
+									key={input.id}
+									{...input}
+									value={values[input.name]}
+									onChange={input.id != 6 ? onChange : undefined}
+								/>
+							))}
 
-				<div className="app">
-					<Form onSubmit={handleSubmit}>
-						{inputs.map((input) => (
-							<FormInput
-								className="ms-5 mb-3"
-								key={input.id}
-								{...input}
-								value={values[input.name]}
-								onChange={onChange}
-							/>
-						))}
-
-						{/* Signup Button */}
-						<div className="px-5 pt-2">
-							<Button
-								type="submit"
-								className="rounded-pill fw-bold mx-auto mt-2 mb-4 px-5"
-								variant="dark"
-								size="md"
-							>
-								Sign me up!
-							</Button>
+							{/* Signup Button */}
+							<div className="px-5 pt-2">
+								<Button
+									type="submit"
+									className="rounded-pill fw-bold mx-auto mt-2 mb-4 px-5"
+									variant="dark"
+									size="md"
+								>
+									Sign me up!
+								</Button>
+							</div>
+						</Form>
+					</div>
+				)}
+				{message && (
+					<div className="form-group">
+						<div className={successful ? "alert alert-success" : "alert alert-danger"} role="alert">
+							{message}
 						</div>
-					</Form>
-				</div>
+					</div>
+				)}
 			</Col>
 
 			{/* Image */}
