@@ -8,6 +8,7 @@ function EditAccount() {
 	const [currentUser, setCurrentUser] = useState(undefined);
 	const [successful, setSuccessful] = useState(false);
 	const [message, setMessage] = useState("");
+	const [edited, setEdited] = useState(false);
 	const [values, setValues] = useState({
 		username: "",
 		email: "",
@@ -26,9 +27,10 @@ function EditAccount() {
 				id: user.id,
 			});
 		}
-	}, []);
+	}, [successful]);
 	const onChange = (e) => {
 		setValues({ ...values, [e.target.name]: e.target.value });
+		setEdited(true);
 	};
 
 	const handleSubmit = (e) => {
@@ -36,28 +38,15 @@ function EditAccount() {
 		console.log(values);
 		setMessage("");
 		setSuccessful(false);
-		// AuthService.update(values).then(
-		// 	(response) => {
-		// 		setMessage(response.data.message);
-		// 		setSuccessful(true);
-		// 		console.log(response.data.data);
-		// 	},
-		// 	(error) => {
-		// 		const resMessage =
-		// 			(error.response && error.response.data && error.response.data.message) ||
-		// 			error.message ||
-		// 			error.toString();
-
-		// 		setMessage(resMessage);
-		// 		setSuccessful(false);
-		// 	}
-		// );
-
 		AuthService.update(values).then(
-			() => {
-				// navigate("/profile");
+			(response) => {
+				setMessage(response.data.message);
 				setSuccessful(true);
-				window.location.reload();
+				localStorage.setItem("user", JSON.stringify(response.data.data));
+				setValues({
+					...values,
+					username: currentUser.username,
+				});
 			},
 			(error) => {
 				const resMessage =
@@ -65,10 +54,27 @@ function EditAccount() {
 					error.message ||
 					error.toString();
 
-				setSuccessful(false);
 				setMessage(resMessage);
+				setSuccessful(false);
 			}
 		);
+
+		// AuthService.update(values).then(
+		// 	() => {
+		// 		// navigate("/profile");
+		// 		setSuccessful(true);
+		// 		window.location.reload();
+		// 	},
+		// 	(error) => {
+		// 		console.log(error);
+		// 		const resMessage =
+		// 			(error.response && error.response.data && error.response.data.message) ||
+		// 			error.message ||
+		// 			error.toString();
+		// 		setSuccessful(false);
+		// 		setMessage(resMessage);
+		// 	}
+		// );
 	};
 
 	const inputs = [
@@ -141,6 +147,7 @@ function EditAccount() {
 								className="rounded-pill fw-bold text-light mx-auto mt-2 mb-4 px-5"
 								variant="dark"
 								size="md"
+								disabled={!edited}
 							>
 								Submit!
 							</Button>
