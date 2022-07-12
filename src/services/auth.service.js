@@ -21,11 +21,26 @@ const login = async (values) => {
 		login,
 		password,
 	});
-	console.log(response);
-	console.log(response.data);
+	// console.log(response);
+	// console.log(response.data);
 	if (response.data.message == "Login successful") {
-		console.log("saving data to localstorage");
-		localStorage.setItem("user", JSON.stringify(response.data));
+		// console.log("saving data to localstorage");
+		localStorage.setItem("user", JSON.stringify(response.data.data));
+	}
+	return response.data;
+};
+
+const update = async (values) => {
+	const { id, username, email, password } = values;
+	const response = axios.post(API_URL + "update", {
+		email,
+		password,
+		username,
+		id,
+	});
+	if (response.data.message == "Update successful") {
+		console.log(response.data.message);
+		localStorage.setItem("user", JSON.stringify(response.data.data));
 	}
 	return response.data;
 };
@@ -45,6 +60,7 @@ const AuthService = {
 	login,
 	logout,
 	getCurrentUser,
+	update,
 };
 
 export default AuthService;

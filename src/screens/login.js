@@ -43,7 +43,7 @@ function Login() {
 			AuthService.login(values).then(
 				() => {
 					navigate("/profile");
-					// window.location.reload();
+					window.location.reload();
 				},
 				(error) => {
 					const resMessage =
@@ -92,7 +92,9 @@ function Login() {
 								className="rounded-pill fw-bold text-light mx-auto mt-2 mb-4 px-5"
 								variant="dark"
 								size="md"
+								disabled={loading}
 							>
+								{loading && <span className="spinner-border spinner-border-sm"></span>}
 								Log me in!
 							</Button>
 						</div>

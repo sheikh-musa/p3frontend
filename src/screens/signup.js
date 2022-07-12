@@ -2,12 +2,9 @@ import { Row, Col, Button, Image, Form, Container, Nav, Navbar } from "react-boo
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import FormInput from "../components/FormInput.jsx";
-
 import AuthService from "../services/auth.service";
-// import { useAuth } from "../services/use-auth";
 
 function Signup() {
-	// const auth = useAuth();
 	const [successful, setSuccessful] = useState(false);
 	const [message, setMessage] = useState("");
 	const [values, setValues] = useState({

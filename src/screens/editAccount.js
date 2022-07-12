@@ -1,19 +1,75 @@
 import { Row, Col, Button, Image, Form, Container, Nav, Navbar } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FormInput from "../components/FormInput.jsx";
 import AuthService from "../services/auth.service.js";
 
 function EditAccount() {
-	const currentUser = AuthService.getCurrentUser();
-	console.log(currentUser?.username, currentUser?.email);
+	const [currentUser, setCurrentUser] = useState(undefined);
+	const [successful, setSuccessful] = useState(false);
+	const [message, setMessage] = useState("");
 	const [values, setValues] = useState({
 		username: "",
 		email: "",
-		birthday: "",
 		password: "",
-		confirmPassword: "",
+		// confirmPassword: "",
 	});
+	useEffect(() => {
+		const user = AuthService.getCurrentUser();
+
+		if (user) {
+			setCurrentUser(user);
+			setValues({
+				...values,
+				username: user.username,
+				email: user.email,
+				id: user.id,
+			});
+		}
+	}, []);
+	const onChange = (e) => {
+		setValues({ ...values, [e.target.name]: e.target.value });
+	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		console.log(values);
+		setMessage("");
+		setSuccessful(false);
+		// AuthService.update(values).then(
+		// 	(response) => {
+		// 		setMessage(response.data.message);
+		// 		setSuccessful(true);
+		// 		console.log(response.data.data);
+		// 	},
+		// 	(error) => {
+		// 		const resMessage =
+		// 			(error.response && error.response.data && error.response.data.message) ||
+		// 			error.message ||
+		// 			error.toString();
+
+		// 		setMessage(resMessage);
+		// 		setSuccessful(false);
+		// 	}
+		// );
+
+		AuthService.update(values).then(
+			() => {
+				// navigate("/profile");
+				setSuccessful(true);
+				window.location.reload();
+			},
+			(error) => {
+				const resMessage =
+					(error.response && error.response.data && error.response.data.message) ||
+					error.message ||
+					error.toString();
+
+				setSuccessful(false);
+				setMessage(resMessage);
+			}
+		);
+	};
 
 	const inputs = [
 		{
@@ -38,13 +94,6 @@ function EditAccount() {
 		},
 		{
 			id: 3,
-			name: "birthday",
-			type: "date",
-			placeholder: "Birthday",
-			label: "Birthday",
-		},
-		{
-			id: 4,
 			name: "password",
 			type: "password",
 			placeholder: "Password",
@@ -52,36 +101,26 @@ function EditAccount() {
 				"Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!",
 			label: "Password",
 			pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
-			required: true,
 		},
 		{
-			id: 5,
+			id: 4,
 			name: "confirmPassword",
 			type: "password",
 			placeholder: "Confirm Password",
 			errorMessage: "Passwords don't match!",
 			label: "Confirm Password",
 			pattern: values.password,
-			required: true,
 		},
 	];
-
-	const handleSubmit = (e) => {
-		e.preventDefault();
-	};
-
-	const onChange = (e) => {
-		setValues({ ...values, [e.target.name]: e.target.value });
-	};
-
-	console.log(values);
 
 	return (
 		<Row>
 			{/* Edit Account Form */}
 			<Col className="bg-primary py-5" sm={5}>
 				<h2 className="text-dark text-center fw-bold px-5 mt-5 mx-5"> </h2>
-				<h1 className="text-light text-center fw-bold px-5 mx-5">Edit account here</h1>
+				<h1 className="text-light text-center fw-bold px-5 mx-5">
+					{"Hello" && currentUser?.firstName}, edit your account here
+				</h1>
 
 				<div className="app">
 					<Form onSubmit={handleSubmit}>
@@ -91,13 +130,14 @@ function EditAccount() {
 								key={input.id}
 								{...input}
 								value={values[input.name]}
-								onChange={onChange}
+								onChange={input.id != 4 ? onChange : undefined}
 							/>
 						))}
 
 						{/* Edit Button */}
 						<div className="px-5 mt-3">
 							<Button
+								type="submit"
 								className="rounded-pill fw-bold text-light mx-auto mt-2 mb-4 px-5"
 								variant="dark"
 								size="md"
@@ -107,6 +147,13 @@ function EditAccount() {
 						</div>
 					</Form>
 				</div>
+				{message && (
+					<div className="form-group">
+						<div className={successful ? "alert alert-success" : "alert alert-danger"} role="alert">
+							{message}
+						</div>
+					</div>
+				)}
 			</Col>
 
 			{/* Image */}
