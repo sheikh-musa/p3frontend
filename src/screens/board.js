@@ -29,7 +29,8 @@ function Boards() {
 					...currentUser,
 					board: response.data.data,
 				});
-				// localStorage.setItem("user", JSON.stringify(response.data.data));
+				currentUser.board = response.data.data;
+				localStorage.setItem("user", JSON.stringify(currentUser));
 			},
 			(error) => {
 				const resMessage =
@@ -38,17 +39,6 @@ function Boards() {
 					error.toString();
 				console.log(resMessage);
 			}
-			// instance
-			// 	.put("/board", {
-			// 		board: newData,
-			// 		token: props.userToken,
-			// 	})
-			// 	.then(function (response) {
-			// 		console.log(response);
-			// 	})
-			// 	.catch(function (error) {
-			// 		console.log(error.response.data.message);
-			// 	});
 		);
 	}
 	return (

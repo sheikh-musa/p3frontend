@@ -31,18 +31,12 @@ const login = async (values) => {
 
 const update = async (values) => {
 	const { id, username, email, password } = values;
-	// const response =
 	return axios.post(API_URL + "update", {
 		email,
 		password,
 		username,
 		id,
 	});
-	// if (response.data.message == "Update successful") {
-	// 	// console.log(response.data.message);
-	// 	localStorage.setItem("user", JSON.stringify(response.data.data));
-	// }
-	// return response.data;
 };
 
 const board = async (board, token) => {
