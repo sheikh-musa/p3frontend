@@ -45,11 +45,12 @@ const update = async (values) => {
 	// return response.data;
 };
 
-const board = async (values) => {
-	const { email, board } = values;
+const board = async (board, token) => {
+	console.log(board);
+	console.log(token);
 	return axios.put(API_URL + "board", {
-		email,
-		board,
+		board: board,
+		token: token,
 	});
 };
 
@@ -69,6 +70,7 @@ const AuthService = {
 	logout,
 	getCurrentUser,
 	update,
+	board,
 };
 
 export default AuthService;

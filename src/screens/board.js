@@ -21,7 +21,7 @@ function Boards() {
 
 	function handleDataChange(newData) {
 		console.log(newData);
-		// AuthService.board(newData);
+		AuthService.board(newData, currentUser.token);
 		// instance
 		// 	.put("/board", {
 		// 		board: newData,

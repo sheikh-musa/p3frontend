@@ -14,7 +14,9 @@ export default function Landing() {
 
 				<div className="px-5">
 					<Button className="fw-bolder rounded-pill mt-2 mb-5 mx-5 px-5" variant="danger" size="lg">
-						<Link to="/signup">SIGNUP</Link>
+						<Link to="/signup" className="nav-link">
+							SIGNUP
+						</Link>
 					</Button>
 				</div>
 			</Col>
