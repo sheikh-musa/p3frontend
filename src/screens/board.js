@@ -8,31 +8,48 @@ import { useNavigate } from "react-router-dom";
 
 function Boards() {
 	const [currentUser, setCurrentUser] = useState(undefined);
+	const [message, setMessage] = useState("");
 	const navigate = useNavigate();
 	useEffect(() => {
 		const user = AuthService.getCurrentUser();
 		if (user) {
 			setCurrentUser(user);
-			// console.log(user.board);
 		} else {
 			navigate("/login");
 		}
 	}, []);
 
 	function handleDataChange(newData) {
-		console.log(newData);
-		AuthService.board(newData, currentUser.token);
-		// instance
-		// 	.put("/board", {
-		// 		board: newData,
-		// 		token: props.userToken,
-		// 	})
-		// 	.then(function (response) {
-		// 		console.log(response);
-		// 	})
-		// 	.catch(function (error) {
-		// 		console.log(error.response.data.message);
-		// 	});
+		// console.log(newData);
+		AuthService.board(newData, currentUser.token).then(
+			(response) => {
+				setMessage(response.data.message);
+				console.log(response.data.data);
+				setCurrentUser({
+					...currentUser,
+					board: response.data.data,
+				});
+				// localStorage.setItem("user", JSON.stringify(response.data.data));
+			},
+			(error) => {
+				const resMessage =
+					(error.response && error.response.data && error.response.data.message) ||
+					error.message ||
+					error.toString();
+				console.log(resMessage);
+			}
+			// instance
+			// 	.put("/board", {
+			// 		board: newData,
+			// 		token: props.userToken,
+			// 	})
+			// 	.then(function (response) {
+			// 		console.log(response);
+			// 	})
+			// 	.catch(function (error) {
+			// 		console.log(error.response.data.message);
+			// 	});
+		);
 	}
 	return (
 		<Row>

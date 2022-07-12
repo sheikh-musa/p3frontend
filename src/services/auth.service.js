@@ -46,12 +46,21 @@ const update = async (values) => {
 };
 
 const board = async (board, token) => {
-	console.log(board);
-	console.log(token);
 	return axios.put(API_URL + "board", {
 		board: board,
 		token: token,
 	});
+	// instance
+	// 	.put("/board", {
+	// 		board: newData,
+	// 		token: props.userToken,
+	// 	})
+	// 	.then(function (response) {
+	// 		console.log(response);
+	// 	})
+	// 	.catch(function (error) {
+	// 		console.log(error.response.data.message);
+	// 	});
 };
 
 const logout = async () => {

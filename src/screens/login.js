@@ -42,7 +42,7 @@ function Login() {
 		if (values.login != "" && values.password != "") {
 			AuthService.login(values).then(
 				() => {
-					navigate("/profile");
+					navigate("/board");
 					window.location.reload();
 				},
 				(error) => {
