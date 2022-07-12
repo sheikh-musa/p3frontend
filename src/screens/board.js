@@ -12,6 +12,7 @@ function Boards() {
 	const navigate = useNavigate();
 	useEffect(() => {
 		const user = AuthService.getCurrentUser();
+		console.log(user);
 		if (user) {
 			setCurrentUser(user);
 		} else {
@@ -20,17 +21,20 @@ function Boards() {
 	}, []);
 
 	function handleDataChange(newData) {
-		// console.log(newData);
+		console.log(newData);
+		console.log(currentUser.token);
 		AuthService.board(newData, currentUser.token).then(
 			(response) => {
 				setMessage(response.data.message);
-				console.log(response.data.data);
-				setCurrentUser({
-					...currentUser,
-					board: response.data.data,
-				});
+				// console.log(response.data.data);
+				// setCurrentUser({
+				// 	...currentUser,
+				// 	board: response.data.data,
+				// });
 				currentUser.board = response.data.data;
-				localStorage.setItem("user", JSON.stringify(currentUser));
+				console.log(response.data.data);
+				// localStorage.setItem("user", JSON.stringify(currentUser));
+				AuthService.setUser("user", currentUser);
 			},
 			(error) => {
 				const resMessage =

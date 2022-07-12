@@ -46,7 +46,9 @@ function EditAccount() {
 			(response) => {
 				setMessage(response.data.message);
 				setSuccessful(true);
-				localStorage.setItem("user", JSON.stringify(response.data.data));
+				currentUser.username = response.data.data.username;
+				// localStorage.setItem("user", JSON.stringify(response.data.data));
+				AuthService.setUser("user", currentUser);
 				setValues({
 					...values,
 					username: currentUser.username,

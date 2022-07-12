@@ -1,4 +1,5 @@
 import axios from "axios";
+import { reactLocalStorage } from "reactjs-localstorage";
 
 const API_URL = "http://localhost:3001/";
 // const API_URL = "https://sdic4g5.herokuapp.com/";
@@ -20,11 +21,9 @@ const login = async (values) => {
 		login,
 		password,
 	});
-	// console.log(response);
-	// console.log(response.data);
 	if (response.data.message == "Login successful") {
-		// console.log("saving data to localstorage");
-		localStorage.setItem("user", JSON.stringify(response.data.data));
+		// localStorage.setItem("user", JSON.stringify(response.data.data));
+		reactLocalStorage.setObject("user", response.data.data);
 	}
 	return response.data;
 };
@@ -44,27 +43,26 @@ const board = async (board, token) => {
 		board: board,
 		token: token,
 	});
-	// instance
-	// 	.put("/board", {
-	// 		board: newData,
-	// 		token: props.userToken,
-	// 	})
-	// 	.then(function (response) {
-	// 		console.log(response);
-	// 	})
-	// 	.catch(function (error) {
-	// 		console.log(error.response.data.message);
-	// 	});
 };
 
 const logout = async () => {
-	localStorage.removeItem("user");
+	// localStorage.removeItem("user");
+	reactLocalStorage.remove("user");
 	const response = await axios.post(API_URL + "signout");
 	return response.data;
 };
 
 const getCurrentUser = () => {
-	return JSON.parse(localStorage.getItem("user"));
+	// return JSON.parse(localStorage.getItem("user"));
+	if (Object.keys(reactLocalStorage.getObject("user")) != 0)
+		return reactLocalStorage.getObject("user");
+	else {
+		return null;
+	}
+};
+
+const setUser = (key, value) => {
+	reactLocalStorage.setObject(key, value);
 };
 
 const AuthService = {
@@ -74,6 +72,7 @@ const AuthService = {
 	getCurrentUser,
 	update,
 	board,
+	setUser,
 };
 
 export default AuthService;
