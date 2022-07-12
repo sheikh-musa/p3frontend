@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import FormInput from "../components/FormInput.jsx";
 import AuthService from "../services/auth.service.js";
+import { useNavigate } from "react-router-dom";
 
 function EditAccount() {
 	const [currentUser, setCurrentUser] = useState(undefined);
@@ -15,6 +16,7 @@ function EditAccount() {
 		password: "",
 		// confirmPassword: "",
 	});
+	const navigate = useNavigate();
 	useEffect(() => {
 		const user = AuthService.getCurrentUser();
 
@@ -26,6 +28,8 @@ function EditAccount() {
 				email: user.email,
 				id: user.id,
 			});
+		} else {
+			navigate("/login");
 		}
 	}, [successful]);
 	const onChange = (e) => {

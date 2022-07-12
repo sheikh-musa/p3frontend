@@ -1,31 +1,50 @@
 import { Row, Col, Button, Image, Container, Nav, Navbar } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React from "react";
+import { useState, useEffect } from "react";
 import "../App.css";
+import Board from "react-trello";
+import AuthService from "../services/auth.service";
+import { useNavigate } from "react-router-dom";
 
 function Boards() {
+	const [currentUser, setCurrentUser] = useState(undefined);
+	const navigate = useNavigate();
+	useEffect(() => {
+		const user = AuthService.getCurrentUser();
+		if (user) {
+			setCurrentUser(user);
+			// console.log(user.board);
+		} else {
+			navigate("/login");
+		}
+	}, []);
+
+	function handleDataChange(newData) {
+		console.log(newData);
+		// AuthService.board(newData);
+		// instance
+		// 	.put("/board", {
+		// 		board: newData,
+		// 		token: props.userToken,
+		// 	})
+		// 	.then(function (response) {
+		// 		console.log(response);
+		// 	})
+		// 	.catch(function (error) {
+		// 		console.log(error.response.data.message);
+		// 	});
+	}
 	return (
 		<Row>
-			{/* Navigation bar */}
-			{/* <Navbar bg="dark justify-content-end py-3" variant="dark" expand="lg">
-        <Container>
-          <Navbar.Brand href="#home">         
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto fw-bold">
-            <Nav.Link href="#home">HOME</Nav.Link>
-            <Nav.Link href="#features">FEATURES</Nav.Link>
-            <Nav.Link href="#contact">CONTACT</Nav.Link>
-			      <Nav.Link href="#board">EDIT ACCOUNT</Nav.Link>
-          <div className="px-2">
-            <Button className="rounded-pill fw-bold mx-auto px-5" variant="light" size="md">LOGOUT</Button>
-          </div>
-          </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>  */}
-
+			{currentUser && (
+				<Board
+					data={currentUser.board}
+					draggable
+					editable
+					addCardTitle="Add Item"
+					onDataChange={handleDataChange}
+				/>
+			)}
 			{/* Image */}
 			<Col className="ms-auto pt-5">
 				<Image

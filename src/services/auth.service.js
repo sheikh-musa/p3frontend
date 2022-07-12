@@ -1,6 +1,5 @@
 import axios from "axios";
 
-// const API_URL = "http://localhost:3001/api/auth/";
 const API_URL = "http://localhost:3001/";
 // const API_URL = "https://sdic4g5.herokuapp.com/";
 
@@ -44,6 +43,14 @@ const update = async (values) => {
 	// 	localStorage.setItem("user", JSON.stringify(response.data.data));
 	// }
 	// return response.data;
+};
+
+const board = async (values) => {
+	const { email, board } = values;
+	return axios.put(API_URL + "board", {
+		email,
+		board,
+	});
 };
 
 const logout = async () => {
