@@ -40,7 +40,7 @@ function App() {
 		<>
 			<Navbar bg="dark justify-content-end py-3" variant="dark" expand="lg">
 				<Container>
-					<Link to={"/"} className="navbar-brand">
+					<Link to={"/p3frontend"} className="navbar-brand">
 						<img src={logo} style={{ height: "75px" }} alt="Responsive image"></img>
 					</Link>
 					<div className="navbar-nav mr-auto">
@@ -70,7 +70,7 @@ function App() {
 										</Link>
 									</li>
 									<li className="nav-item">
-										<a href="p3frontend/login" className="nav-link" onClick={logOut}>
+										<a href="/" className="nav-link" onClick={logOut}>
 											LOG OUT
 										</a>
 									</li>
