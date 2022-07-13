@@ -35,14 +35,14 @@ function Login() {
 	const navigate = useNavigate();
 
 	const handleSubmit = (e) => {
-		console.log(values);
+		// console.log(values);
 		e.preventDefault();
 		setMessage("");
 		setLoading(true);
 		if (values.login != "" && values.password != "") {
 			AuthService.login(values).then(
 				() => {
-					navigate("/board");
+					navigate("p3frontend/board");
 					window.location.reload();
 				},
 				(error) => {
