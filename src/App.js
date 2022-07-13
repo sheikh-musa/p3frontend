@@ -106,12 +106,12 @@ function App() {
 				</Container>
 			</Navbar>
 			<Routes>
-				<Route path="/p3frontend" element={<Home />} />
-				<Route path="/p3frontend/home" element={<Home />} />
-				<Route path="/p3frontend/login" element={<Login />} />
-				<Route path="/p3frontend/signup" element={<Signup />} />
-				<Route path="/p3frontend/profile" element={<EditAccount />} />
-				<Route path="/p3frontend/board" element={<Boards />} />
+				<Route exact path="/p3frontend" element={<Home />} />
+				<Route exact path="/p3frontend/home" element={<Home />} />
+				<Route exact path="/p3frontend/login" element={<Login />} />
+				<Route exact path="/p3frontend/signup" element={<Signup />} />
+				<Route exact path="/p3frontend/profile" element={<EditAccount />} />
+				<Route exact path="/p3frontend/board" element={<Boards />} />
 			</Routes>
 		</>
 	);
