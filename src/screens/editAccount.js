@@ -1,19 +1,28 @@
-import { Row, Col, Button, Image, Form, Container, Nav, Navbar } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { useState, useEffect } from "react";
-import FormInput from "../components/FormInput.jsx";
-import AuthService from "../services/auth.service.js";
-import { useNavigate } from "react-router-dom";
+import {
+	Row,
+	Col,
+	Button,
+	Image,
+	Form,
+	Container,
+	Nav,
+	Navbar,
+} from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState, useEffect } from 'react';
+import FormInput from '../components/FormInput.jsx';
+import AuthService from '../services/auth.service.js';
+import { useNavigate } from 'react-router-dom';
 
 function EditAccount() {
 	const [currentUser, setCurrentUser] = useState(undefined);
 	const [successful, setSuccessful] = useState(false);
-	const [message, setMessage] = useState("");
+	const [message, setMessage] = useState('');
 	const [edited, setEdited] = useState(false);
 	const [values, setValues] = useState({
-		username: "",
-		email: "",
-		password: "",
+		username: '',
+		email: '',
+		password: '',
 		// confirmPassword: "",
 	});
 	const navigate = useNavigate();
@@ -29,7 +38,7 @@ function EditAccount() {
 				id: user.id,
 			});
 		} else {
-			navigate("/login");
+			navigate('/login');
 		}
 	}, [successful]);
 	const onChange = (e) => {
@@ -40,7 +49,7 @@ function EditAccount() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		console.log(values);
-		setMessage("");
+		setMessage('');
 		setSuccessful(false);
 		AuthService.update(values).then(
 			(response) => {
@@ -48,7 +57,7 @@ function EditAccount() {
 				setSuccessful(true);
 				currentUser.username = response.data.data.username;
 				// localStorage.setItem("user", JSON.stringify(response.data.data));
-				AuthService.setUser("user", currentUser);
+				AuthService.setUser('user', currentUser);
 				setValues({
 					...values,
 					username: currentUser.username,
@@ -56,7 +65,9 @@ function EditAccount() {
 			},
 			(error) => {
 				const resMessage =
-					(error.response && error.response.data && error.response.data.message) ||
+					(error.response &&
+						error.response.data &&
+						error.response.data.message) ||
 					error.message ||
 					error.toString();
 
@@ -86,41 +97,41 @@ function EditAccount() {
 	const inputs = [
 		{
 			id: 1,
-			name: "username",
-			type: "text",
-			placeholder: "Username",
+			name: 'username',
+			type: 'text',
+			placeholder: 'Username',
 			errorMessage:
 				"Username should be 3-16 characters and shouldn't include any special character!",
-			label: "Username",
-			pattern: "^[A-Za-z0-9]{3,16}$",
+			label: 'Username',
+			pattern: '^[A-Za-z0-9]{3,16}$',
 			required: true,
 		},
 		{
 			id: 2,
-			name: "email",
-			type: "email",
-			placeholder: "Email",
-			errorMessage: "It should be a valid email address!",
-			label: "Email",
+			name: 'email',
+			type: 'email',
+			placeholder: 'Email',
+			errorMessage: 'It should be a valid email address!',
+			label: 'Email',
 			required: true,
 		},
 		{
 			id: 3,
-			name: "password",
-			type: "password",
-			placeholder: "Password",
+			name: 'password',
+			type: 'password',
+			placeholder: 'Password',
 			errorMessage:
-				"Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!",
-			label: "Password",
+				'Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!',
+			label: 'Password',
 			pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
 		},
 		{
 			id: 4,
-			name: "confirmPassword",
-			type: "password",
-			placeholder: "Confirm Password",
+			name: 'confirmPassword',
+			type: 'password',
+			placeholder: 'Confirm Password',
 			errorMessage: "Passwords don't match!",
-			label: "Confirm Password",
+			label: 'Confirm Password',
 			pattern: values.password,
 		},
 	];
@@ -128,41 +139,48 @@ function EditAccount() {
 	return (
 		<Row>
 			{/* Edit Account Form */}
-			<Col className="bg-primary py-5" sm={5}>
-				<h2 className="text-dark text-center fw-bold px-5 mt-5 mx-5"> </h2>
-				<h1 className="text-light text-center fw-bold px-5 mx-5">
-					{"Hello" && currentUser?.firstName}, edit your account here
+			<Col className='bg-primary py-5' sm={5}>
+				<h2 className='text-dark text-center fw-bold px-5 mt-5 mx-5'> </h2>
+				<h1 className='text-light text-center fw-bold px-5 mx-5'>
+					{'Hello' && currentUser?.firstName}, edit your account here
 				</h1>
 
-				<div className="app">
-					<Form onSubmit={handleSubmit}>
-						{inputs.map((input) => (
-							<FormInput
-								className="ms-5 mb-3"
-								key={input.id}
-								{...input}
-								value={values[input.name]}
-								onChange={input.id != 4 ? onChange : undefined}
-							/>
-						))}
+				<div className='app'>
+					<div align='center'>
+						<Form onSubmit={handleSubmit}>
+							{inputs.map((input) => (
+								<FormInput
+									className='ms-1 mb-3'
+									key={input.id}
+									{...input}
+									value={values[input.name]}
+									onChange={input.id != 4 ? onChange : undefined}
+								/>
+							))}
 
-						{/* Edit Button */}
-						<div className="px-5 mt-3">
-							<Button
-								type="submit"
-								className="rounded-pill fw-bold text-light mx-auto mt-2 mb-4 px-5"
-								variant="dark"
-								size="md"
-								disabled={!edited}
-							>
-								Submit!
-							</Button>
-						</div>
-					</Form>
+							{/* Edit Button */}
+							<div className='px-5 mt-3'>
+								<Button
+									type='submit'
+									className='rounded-pill fw-bold text-light mx-auto mt-2 mb-4 px-5'
+									variant='dark'
+									size='md'
+									disabled={!edited}
+								>
+									Submit!
+								</Button>
+							</div>
+						</Form>
+					</div>
 				</div>
 				{message && (
-					<div className="form-group">
-						<div className={successful ? "alert alert-success" : "alert alert-danger"} role="alert">
+					<div className='form-group'>
+						<div
+							className={
+								successful ? 'alert alert-success' : 'alert alert-danger'
+							}
+							role='alert'
+						>
 							{message}
 						</div>
 					</div>
@@ -170,14 +188,14 @@ function EditAccount() {
 			</Col>
 
 			{/* Image */}
-			<Col className="shadow-lg rounded mx-5 my-4 pt-3" lg={6}>
+			<Col className='shadow-lg rounded mx-5 my-4 pt-3' lg={6}>
 				<Image
-					src="https://img.freepik.com/free-vector/multitasking-theme-illustration_52683-32122.jpg?w=740&t=st=1656901137~exp=1656901737~hmac=7c134aec7b896d17e157ead7502ca7a660dcbcb133ac50045b36056bd7e4228d"
+					src='https://img.freepik.com/free-vector/multitasking-theme-illustration_52683-32122.jpg?w=740&t=st=1656901137~exp=1656901737~hmac=7c134aec7b896d17e157ead7502ca7a660dcbcb133ac50045b36056bd7e4228d'
 					fluid
 					rounded
-					width={700}
-					className=""
-					alt=""
+					width={1000}
+					className=''
+					alt=''
 				/>
 			</Col>
 		</Row>

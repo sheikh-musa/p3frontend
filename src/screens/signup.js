@@ -1,18 +1,27 @@
-import { Row, Col, Button, Image, Form, Container, Nav, Navbar } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { useState } from "react";
-import FormInput from "../components/FormInput.jsx";
-import AuthService from "../services/auth.service";
+import {
+	Row,
+	Col,
+	Button,
+	Image,
+	Form,
+	Container,
+	Nav,
+	Navbar,
+} from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from 'react';
+import FormInput from '../components/FormInput.jsx';
+import AuthService from '../services/auth.service';
 
 function Signup() {
 	const [successful, setSuccessful] = useState(false);
-	const [message, setMessage] = useState("");
+	const [message, setMessage] = useState('');
 	const [values, setValues] = useState({
-		username: "",
-		email: "",
-		firstName: "",
-		lastName: "",
-		password: "",
+		username: '',
+		email: '',
+		firstName: '',
+		lastName: '',
+		password: '',
 	});
 
 	const onChange = (e) => {
@@ -22,7 +31,7 @@ function Signup() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		console.log(values);
-		setMessage("");
+		setMessage('');
 		setSuccessful(false);
 		AuthService.register(values).then(
 			(response) => {
@@ -31,7 +40,9 @@ function Signup() {
 			},
 			(error) => {
 				const resMessage =
-					(error.response && error.response.data && error.response.data.message) ||
+					(error.response &&
+						error.response.data &&
+						error.response.data.message) ||
 					error.message ||
 					error.toString();
 
@@ -44,58 +55,58 @@ function Signup() {
 	const inputs = [
 		{
 			id: 1,
-			name: "username",
-			type: "text",
-			placeholder: "Username",
+			name: 'username',
+			type: 'text',
+			placeholder: 'Username',
 			errorMessage:
 				"Username should be 3-16 characters and shouldn't include any special character!",
-			label: "Username",
-			pattern: "^[A-Za-z0-9]{3,16}$",
+			label: 'Username',
+			pattern: '^[A-Za-z0-9]{3,16}$',
 			required: true,
 		},
 		{
 			id: 2,
-			name: "email",
-			type: "email",
-			placeholder: "Email",
-			errorMessage: "It should be a valid email address!",
-			label: "Email",
+			name: 'email',
+			type: 'email',
+			placeholder: 'Email',
+			errorMessage: 'It should be a valid email address!',
+			label: 'Email',
 			required: true,
 		},
 		{
 			id: 3,
-			name: "firstName",
-			type: "text",
-			placeholder: "First Name",
-			label: "First Name",
+			name: 'firstName',
+			type: 'text',
+			placeholder: 'First Name',
+			label: 'First Name',
 			required: true,
 		},
 		{
 			id: 4,
-			name: "lastName",
-			type: "text",
-			placeholder: "Last Name",
-			label: "Last Name",
+			name: 'lastName',
+			type: 'text',
+			placeholder: 'Last Name',
+			label: 'Last Name',
 			required: true,
 		},
 		{
 			id: 5,
-			name: "password",
-			type: "password",
-			placeholder: "Password",
+			name: 'password',
+			type: 'password',
+			placeholder: 'Password',
 			errorMessage:
-				"Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!",
-			label: "Password",
+				'Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!',
+			label: 'Password',
 			pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
 			required: true,
 		},
 		{
 			id: 6,
-			name: "confirmPassword",
-			type: "password",
-			placeholder: "Confirm Password",
+			name: 'confirmPassword',
+			type: 'password',
+			placeholder: 'Confirm Password',
 			errorMessage: "Passwords don't match!",
-			label: "Confirm Password",
+			label: 'Confirm Password',
 			pattern: values.password,
 			required: true,
 		},
@@ -104,38 +115,47 @@ function Signup() {
 	return (
 		<Row>
 			{/* Signup Form */}
-			<Col className="bg-danger py-4" sm={5}>
-				<h2 className="text-light text-center fw-bold px-5 my-4 mx-5">Create account here</h2>
+			<Col className='bg-danger py-4' sm={5}>
+				<h1 className='text-light text-center fw-bold px-5 my-4 mx-5'>
+					Create account here
+				</h1>
 				{!successful && (
-					<div className="app">
-						<Form onSubmit={handleSubmit}>
-							{inputs.map((input) => (
-								<FormInput
-									className="ms-5 mb-3"
-									key={input.id}
-									{...input}
-									value={values[input.name]}
-									onChange={input.id != 6 ? onChange : undefined}
-								/>
-							))}
+					<div className='app'>
+						<div align='center'>
+							<Form onSubmit={handleSubmit}>
+								{inputs.map((input) => (
+									<FormInput
+										className='ms-1 mb-3'
+										key={input.id}
+										{...input}
+										value={values[input.name]}
+										onChange={input.id != 6 ? onChange : undefined}
+									/>
+								))}
 
-							{/* Signup Button */}
-							<div className="px-5 pt-2">
-								<Button
-									type="submit"
-									className="rounded-pill fw-bold mx-auto mt-2 mb-4 px-5"
-									variant="dark"
-									size="md"
-								>
-									Sign me up!
-								</Button>
-							</div>
-						</Form>
+								{/* Signup Button */}
+								<div className='px-5 pt-2'>
+									<Button
+										type='submit'
+										className='rounded-pill fw-bold mx-auto mt-2 mb-4 px-5'
+										variant='dark'
+										size='md'
+									>
+										Sign me up!
+									</Button>
+								</div>
+							</Form>
+						</div>
 					</div>
 				)}
 				{message && (
-					<div className="form-group">
-						<div className={successful ? "alert alert-success" : "alert alert-danger"} role="alert">
+					<div className='form-group'>
+						<div
+							className={
+								successful ? 'alert alert-success' : 'alert alert-danger'
+							}
+							role='alert'
+						>
 							{message}
 						</div>
 					</div>
@@ -143,14 +163,14 @@ function Signup() {
 			</Col>
 
 			{/* Image */}
-			<Col className="shadow-lg rounded mx-5 my-4 pt-3">
+			<Col className='shadow-lg rounded mx-5 my-4 pt-3'>
 				<Image
-					src="https://img.freepik.com/free-vector/flat-design-youth-day-concept_52683-39926.jpg?w=740&t=st=1656903325~exp=1656903925~hmac=33e9dff3a8fe461c27bb145bddb05c73705296b9c5c665495b02310b067fea9a"
+					src='https://img.freepik.com/free-vector/flat-design-youth-day-concept_52683-39926.jpg?w=740&t=st=1656903325~exp=1656903925~hmac=33e9dff3a8fe461c27bb145bddb05c73705296b9c5c665495b02310b067fea9a'
 					fluid
 					rounded
 					width={900}
-					className=""
-					alt=""
+					className=''
+					alt=''
 				/>
 			</Col>
 		</Row>
