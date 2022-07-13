@@ -45,13 +45,13 @@ function App() {
 					</Link>
 					<div className="navbar-nav mr-auto">
 						<li className="nav-item">
-							<Link to="/home" className="nav-link">
+							<Link to="p3frontend/home" className="nav-link">
 								HOME
 							</Link>
 						</li>
 						{currentUser && (
 							<li className="nav-item">
-								<Link to={"/board"} className="nav-link">
+								<Link to={"p3frontend/board"} className="nav-link">
 									BOARD
 								</Link>
 							</li>
@@ -65,12 +65,12 @@ function App() {
 							{currentUser ? (
 								<div className="navbar-nav ml-auto">
 									<li className="nav-item">
-										<Link to={"/profile"} className="nav-link">
+										<Link to={"p3frontend/profile"} className="nav-link">
 											PROFILE
 										</Link>
 									</li>
 									<li className="nav-item">
-										<a href="/login" className="nav-link" onClick={logOut}>
+										<a href="p3frontend/login" className="nav-link" onClick={logOut}>
 											LOG OUT
 										</a>
 									</li>
@@ -78,13 +78,13 @@ function App() {
 							) : (
 								<div className="navbar-nav ml-auto">
 									<li className="nav-item">
-										<Link to={"/login"} className="nav-link">
+										<Link to={"p3frontend/login"} className="nav-link">
 											LOGIN
 										</Link>
 									</li>
 
 									<li className="nav-item">
-										<Link to={"/signup"} className="nav-link">
+										<Link to={"p3frontend/signup"} className="nav-link">
 											SIGN UP
 										</Link>
 									</li>
