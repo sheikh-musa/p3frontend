@@ -29,7 +29,7 @@ function EditAccount() {
 				id: user.id,
 			});
 		} else {
-			navigate("/p3frontend/login");
+			navigate("/login");
 		}
 	}, [successful]);
 	const onChange = (e) => {

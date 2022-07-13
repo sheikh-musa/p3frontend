@@ -16,7 +16,7 @@ function Boards() {
 		if (user) {
 			setCurrentUser(user);
 		} else {
-			navigate("/p3frontend/login");
+			navigate("/login");
 		}
 	}, []);
 

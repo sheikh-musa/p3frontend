@@ -40,18 +40,18 @@ function App() {
 		<>
 			<Navbar bg="dark justify-content-end py-3" variant="dark" expand="lg">
 				<Container>
-					<Link to={"/p3frontend"} className="navbar-brand">
+					<Link to={"/"} className="navbar-brand">
 						<img src={logo} style={{ height: "75px" }} alt="Responsive image"></img>
 					</Link>
 					<div className="navbar-nav mr-auto">
 						<li className="nav-item">
-							<Link to="p3frontend/home" className="nav-link">
+							<Link to="/home" className="nav-link">
 								HOME
 							</Link>
 						</li>
 						{currentUser && (
 							<li className="nav-item">
-								<Link to={"p3frontend/board"} className="nav-link">
+								<Link to={"/board"} className="nav-link">
 									BOARD
 								</Link>
 							</li>
@@ -65,7 +65,7 @@ function App() {
 							{currentUser ? (
 								<div className="navbar-nav ml-auto">
 									<li className="nav-item">
-										<Link to={"p3frontend/profile"} className="nav-link">
+										<Link to={"/profile"} className="nav-link">
 											PROFILE
 										</Link>
 									</li>
@@ -78,13 +78,13 @@ function App() {
 							) : (
 								<div className="navbar-nav ml-auto">
 									<li className="nav-item">
-										<Link to={"p3frontend/login"} className="nav-link">
+										<Link to={"/login"} className="nav-link">
 											LOGIN
 										</Link>
 									</li>
 
 									<li className="nav-item">
-										<Link to={"p3frontend/signup"} className="nav-link">
+										<Link to={"/signup"} className="nav-link">
 											SIGN UP
 										</Link>
 									</li>
